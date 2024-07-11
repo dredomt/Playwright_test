@@ -1,8 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        ALLURE_RESULTS = 'target/allure-results'
+    tools{
+        jdk ""
+        maven ""
     }
 
     stages {
@@ -23,22 +24,15 @@ pipeline {
                 sh './mvnw test'
             }
         }
-
-        stage('Allure Report') {
-            steps {
-                allure([
-                    results: [[path: 'target/allure-results']]
-                ])
-            }
-        }
     }
 
     post {
         always {
             // Publish Allure Report
-            allure([
-                results: [[path: "${ALLURE_RESULTS}"]]
-            ])
+                allure([
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'target/allure-results']]
+                ])
         }
     }
 }
