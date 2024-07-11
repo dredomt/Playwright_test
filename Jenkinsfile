@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools{
-        jdk ""
-        maven ""
-    }
 
     stages {
         stage('Checkout') {
@@ -28,11 +24,6 @@ pipeline {
 
     post {
         always {
-            // Publish Allure Report
-                allure([
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'target/allure-results']]
-                ])
         }
     }
 }
