@@ -3,8 +3,6 @@ pipeline {
 
     tools {
         maven 'Maven'
-        jdk 'JDK'
-        allure 'Allure'
     }
 
     stages {
@@ -25,7 +23,7 @@ pipeline {
  
                 allure([
                     includeProperties: false,
-                    jdk: '',
+                    jdk: 'JDK',
                     properties: [],
                     reportBuildPolicy: 'ALWAYS',
                     results: [[path: 'target/allure-results']]
